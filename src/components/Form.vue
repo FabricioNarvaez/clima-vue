@@ -1,5 +1,6 @@
 <template>
-    <form class="formulario">
+    <form class="formulario" @submit.prevent="consultarClima">
+        <Alert v-if="error">{{ error }}</Alert>
         <div class="campo">
             <label for="ciudad">Ciudad:</label>
             <input id="ciudad" v-model="busqueda.ciudad" type="text" placeholder="Ingresa una ciudad" />
@@ -19,8 +20,10 @@
 </template>
 
 <script setup>
-    import { reactive } from 'vue';
+    import { reactive, ref } from 'vue';
+    import Alert from './Alert.vue';
 
+    const error = ref('');
     const busqueda = reactive({
         ciudad: '',
         pais: ''
@@ -35,4 +38,13 @@
         { codigo: 'ES', nombre: 'España' },
         { codigo: 'PE', nombre: 'Perú' }
     ]
+
+    const consultarClima = () => {
+        if (Object.values(busqueda).includes('')) {
+            error.value = 'Todos los campos son obligatorios';
+            return;
+        }
+        error.value = '';
+        const APIUrl = import.meta.env.VITE_openweathermap_key;
+    }
 </script>
