@@ -47,7 +47,6 @@
             return;
         }
         error.value = '';
-        const APIUrl = import.meta.env.VITE_openweathermap_key;
-        emit('obtenerClima', APIUrl);
+        emit('obtenerClima', busqueda);
     }
 </script>
