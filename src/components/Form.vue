@@ -29,6 +29,8 @@
         pais: ''
     });
 
+    const emit = defineEmits(['obtenerClima']);
+
     const paises = [
         { codigo: 'US', nombre: 'Estados Unidos' },
         { codigo: 'MX', nombre: 'México' },
@@ -46,5 +48,6 @@
         }
         error.value = '';
         const APIUrl = import.meta.env.VITE_openweathermap_key;
+        emit('obtenerClima', APIUrl);
     }
 </script>
