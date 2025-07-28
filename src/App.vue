@@ -9,5 +9,5 @@
     import Formulario from './components/Form.vue';
     import useClima from './composables/useClima';
 
-    const { obtenerClima } = useClima();
+    const { obtenerClima, clima } = useClima();
 </script>

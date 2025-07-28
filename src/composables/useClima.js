@@ -1,5 +1,8 @@
 import axios from "axios";
+import { ref } from "vue";
+
 export default function useClima() {
+    const clima = ref({});
 
     const obtenerClima = async ({ciudad, pais}) => {
         const APIKey = import.meta.env.VITE_openweathermap_key;
@@ -12,8 +15,8 @@ export default function useClima() {
 
             const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKey}`;
             const { data: dataClima} = await axios(currentWeatherUrl);
-            console.log("Datos de la ubicación:", dataClima);
-            
+            clima.value = dataClima;
+
         } catch (error) {
             console.error("Error al obtener la ubicación:", error);
             throw new Error("No se pudo obtener la ubicación. Verifica el nombre de la ciudad y el país.");
@@ -22,5 +25,6 @@ export default function useClima() {
 
     return {
         obtenerClima,
+        clima
     }
 }
