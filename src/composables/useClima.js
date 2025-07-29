@@ -4,11 +4,13 @@ import { computed, ref } from "vue";
 export default function useClima() {
     const clima = ref({});
     const spinner = ref(false);
+    const errorMessage = ref(null);
 
     const obtenerClima = async ({ciudad, pais}) => {
         const APIKey = import.meta.env.VITE_openweathermap_key;
         spinner.value = true;
         clima.value = {};
+        errorMessage.value = null;
 
         try {
             const GeocodingAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&limit=1&appid=${APIKey}`;
@@ -20,7 +22,7 @@ export default function useClima() {
             const { data: dataClima} = await axios(currentWeatherUrl);
             clima.value = dataClima;
         } catch (error) {
-            console.error("Error al obtener la ubicación:", error);
+            errorMessage.value = 'Ciudad no encontrada';
             throw new Error("No se pudo obtener la ubicación. Verifica el nombre de la ciudad y el país.");
         }finally {
             spinner.value = false;
@@ -38,6 +40,7 @@ export default function useClima() {
         mostrarClima,
         convertirGrados,
         clima,
-        spinner
+        spinner,
+        errorMessage
     }
 }

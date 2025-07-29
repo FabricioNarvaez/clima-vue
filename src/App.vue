@@ -4,6 +4,7 @@
         <Formulario @obtenerClima="obtenerClima"/>
         <Spinner v-if="spinner"/>
         <Clima v-if="mostrarClima" :clima="clima"/>
+        <Alert v-if="errorMessage">{{ errorMessage }}</Alert>
     </div>
 </template>
 
@@ -12,6 +13,7 @@
     import Clima from './components/Clima.vue';
     import useClima from './composables/useClima';
     import Spinner from './components/Spinner.vue';
+    import Alert from './components/Alert.vue';
 
-    const { obtenerClima, clima, mostrarClima, spinner} = useClima();
+    const { obtenerClima, clima, mostrarClima, spinner, errorMessage} = useClima();
 </script>
